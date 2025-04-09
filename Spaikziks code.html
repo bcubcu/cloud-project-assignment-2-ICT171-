@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spaikziks-The art of you</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Waterlily&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F5EFEB;
+            color: #333;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px;
+            background-color: #F5EFEB;
+            font-size: 42px;
+            font-weight: 600;
+            font-family: 'Times New Roman', serif;
+            color: #00408C;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        header img {
+            width: 80px;
+            height: auto;
+            margin-right: 20px;
+        }
+        nav {
+            text-align: center;
+            padding: 10px;
+            background: #00408C;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .upload-section {
+            text-align: center;
+            padding: 30px 20px;
+            background: white;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        input[type="file"], input[type="text"], input[type="email"], textarea {
+            display: block;
+            margin: 10px auto;
+            padding: 12px;
+            width: 80%;
+            max-width: 400px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        button {
+            padding: 12px 24px;
+            border: none;
+            background-color: #00408C;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #002D5A;
+        }
+        .gallery-container {
+            display: flex;
+            padding: 20px;
+            gap: 20px;
+        }
+        .gallery {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .art-card {
+            background:#4E351E;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+        }
+        .art-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .art-card p {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #F7F6E3;
+        }
+        .name-section {
+            text-align: center;
+            padding: 50px 20px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #00408C;
+            font-family: 'Poppins', sans-serif;
+        }
+        .project-proposal, .license-rationale, .contact-section, .artist-services {
+            text-align: left;
+            padding: 20px;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            font-family: 'Poppins', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .project-proposal h2, .license-rationale h2, .contact-section h2, .artist-services h2 {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            color: #00408C;
+        }
+        .section {
+            display: none;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            font-size: 18px;
+            color: #00408C;
+        }
+        .art-actions {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .art-actions button {
+            padding: 8px 12px;
+            font-size: 14px;
+        }
+        .contact-subheading {
+            text-align: center;
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        .contact-subheading p {
+            margin: 8px 0;
+        }
+        #messageStatus {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            display: none;
+        }
+        .form-submit-btn {
+            display: flex;
+            justify-content: center;
+        }
+        .edit-form {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        .edit-form input, .edit-form textarea {
+            width: 90%;
+            margin-bottom: 10px;
+        }
+        .edit-form-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .services-box {
+            width: 250px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+        .services-box h3 {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 20px;
+            color: #00408C;
+            border-bottom: 2px solid #00408C;
+            padding-bottom: 10px;
+        }
+        .services-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        .services-box li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .services-box a {
+            color: #00408C;
+            text-decoration: none;
+        }
+        .services-box a:hover {
+            text-decoration: underline;
+        }
+        .view-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .view-actions button {
+            padding: 10px 15px;
+        }
+        .featured-artist {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .artist-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #00408C;
+            margin-bottom: 20px;
+        }
+        .artist-name {
+            color: #00408C;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .artist-bio {
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .pricing-table th {
+            background-color: #00408C;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .pricing-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .pricing-table tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="art.png" alt="Logo">
+        <span onclick="showGallery()" style="cursor: pointer;">Spaikziks-The art of you</span>
+    </header>
+    <nav>
+        <a onclick="showHome()">About</a>
+        <a onclick="showGallery()">Gallery</a>
+        <a onclick="showArtistServices()">Artist Services</a>
+        <a onclick="showLicense()">License</a>
+        <a onclick="showContact()">Contact Us</a>
+    </nav>
+
+    <div class="name-section" id="nameSection">
+        Rimsha Raheem, Student ID:35170856
+        <div class="project-proposal">
+            <h1>Project Proposal</h1>
+            <p>
+                "Spaikziks" website is a dedicated platform that provides artists a space free from the limitations of most social media algorithms that prioritize consistent engagement-driven content over quality; "Spaikziks" allows artists to showcase their work without the need to follow short-form trends or pay and algorithmic suppression for garnering visibility.<br><br>
+                The platform is a digital portfolio and marketplace that enables freelance artists to upload, categorize, and promote their work. "Spaiksziks" supports freelancers, including illustrators, painters, and digital artists. With a focus on artistic integrity and equal exposure, "Spaikziks" enables users to store high-quality image hosting, customizable portfolio layouts, direct messages for commissions, and an integrated marketplace where artists can offer custom orders. It enables artist-led discussion between artists through forums and collaborative spaces where Artists can connect, share resources, and support each other. "Spaikziks" compensates artists fairly, unlike other platforms that take excessive cuts. Through the platform, artists can curate their galleries, engaging with their audience directly while setting prices without external interference experienced through other platforms.
+            </p>
+        </div>
+    </div>
+
+    <div id="licenseSection" class="section">
+        <div class="license-rationale">
+            <h2>License</h2>
+            <p>
+                "Spaikziks" operates under the Creative Commons Attribution NonCommercial-NoDerivatives 4.0 International License, which enables artists to maintain full authority over their artwork. Content distributed under this license enables content to be viewed and shared for personal, non-commercial use but demands correct credit of the original artist's work. The license prohibits modifications and commercial use of content to protect artists' work from unauthorized exploitation. This license safeguards creative efforts while fostering a space for artistic integrity by eliminating the risk of commercial misuse and AI scraping of an artist's ownership rights in such environments. This ensures creators can depend on and trust "Spaikziks" as a platform.
+            </p>
+        </div>
+    </div>
+
+    <div id="contactSection" class="section">
+        <div class="contact-section">
+            <h2>Contact Us</h2>
+            <div class="contact-subheading">
+                <p>Found a bug? Contact us!</p>
+                <p>Suggestions? Contact us!</p>
+                <p>For more, connect with us!</p>
+            </div>
+            <form id="contactForm" action="https://formsubmit.co/rimsha050906@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="New Spaikziks Contact Submission">
+                <input type="hidden" name="_template" value="table">
+                <input type="text" name="name" id="contactName" placeholder="Your Name" required>
+                <input type="email" name="email" id="contactEmail" placeholder="Your Email" required>
+                <textarea name="message" id="contactMessage" placeholder="Your Message" required></textarea>
+                <div class="form-submit-btn">
+                    <button type="submit">Send Message</button>
+                </div>
+            </form>
+            <div id="messageStatus"></div>
+        </div>
+    </div>
+
+    <div id="artistServicesSection" class="section">
+        <div class="artist-services">
+            <h2>Artist Services</h2>
+            
+            <div class="featured-artist">
+                <img src="suffer.png" alt="Featured Artist" class="artist-photo">
+                <h3 class="artist-name">cactus_on.fire</h3>
+                <p class="artist-bio">This month's featured artist specializes in digital illustrations and portrait commissions. With over 5 years of experience in the industry, they have worked with clients worldwide to create stunning custom artwork.</p>
+            </div>
+            
+            <h3>Our Services</h3>
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Timeframe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Portrait Commission</td>
+                        <td>Custom portrait artwork</td>
+                        <td>$100-$300</td>
+                        <td>1-2 weeks</td>
+                    </tr>
+                    <tr>
+                        <td>Digital Illustration</td>
+                        <td>High-resolution digital artwork</td>
+                        <td>$150-$500</td>
+                        <td>2-3 weeks</td>
+                    </tr>
+                    <tr>
+                        <td>Character Design</td>
+                        <td>Original character creation</td>
+                        <td>$200-$600</td>
+                        <td>3-4 weeks</td>
+                    </tr>
+                    <tr>
+                        <td>Book Cover Art</td>
+                        <td>Custom cover design</td>
+                        <td>$300-$800</td>
+                        <td>4-6 weeks</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="upload-section" id="uploadSection">
+        <h3>Upload</h3>
+        <input type="file" id="imageUpload" accept="image/*">
+        <input type="text" id="description" placeholder="Enter description">
+        <input type="text" id="artistName" placeholder="Your name (optional)">
+        <button onclick="uploadArt()">Upload</button>
+        <div id="uploadStatus"></div>
+    </div>
+    <div id="loading" class="loading">Loading gallery...</div>
+    <div class="gallery-container">
+        <div class="gallery" id="gallery"></div>
+        <div class="services-box">
+            <h3>Artist Services</h3>
+            <ul>
+                <li><a href="#" onclick="showArtistServices()">Featured Artist</a></li>
+                <li><a href="#" onclick="showArtistServices()">Commission Prices</a></li>
+                <li><a href="#" onclick="showArtistServices()">Custom Artwork</a></li>
+                <li><a href="#" onclick="showArtistServices()">Portrait Services</a></li>
+                <li><a href="#" onclick="showArtistServices()">Digital Illustrations</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <footer style="text-align: center; padding: 25px 20px; background: #0D1F23; color: white; font-size: 14px; width: 100%;">
+        <div style="margin-bottom: 20px;">
+            &copy; 2025 Spaikziks. All Rights Reserved.
+        </div>
+        
+        <div style="display: flex; justify-content: center; gap: 60px; flex-wrap: wrap;">
+            <div style="min-width: 120px;">
+                <h4 style="margin-bottom: 12px; color: #F5EFEB; font-weight: normal; text-transform: uppercase; letter-spacing: 1px;">Quick Links</h4>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 8px;"><a href="#" onclick="showHome()" style="color: white; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#a8c6f5'" onmouseout="this.style.color='white'">About</a></li>
+                    <li><a href="#" onclick="showGallery()" style="color: white; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#a8c6f5'" onmouseout="this.style.color='white'">Gallery</a></li>
+                </ul>
+            </div>
+            
+            <div style="min-width: 120px;">
+                <h4 style="margin-bottom: 12px; color: #F5EFEB; font-weight: normal; text-transform: uppercase; letter-spacing: 1px;">Support</h4>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 8px;"><a href="#" onclick="showArtistServices()" style="color: white; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#a8c6f5'" onmouseout="this.style.color='white'">Artist Services</a></li>
+                    <li style="margin-bottom: 8px;"><a href="#" onclick="showContact()" style="color: white; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#a8c6f5'" onmouseout="this.style.color='white'">Contact Us</a></li>
+                    <li><a href="#" onclick="showLicense()" style="color: white; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#a8c6f5'" onmouseout="this.style.color='white'">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const DEMO_SHARED_KEY = "spaikziks_shared_gallery";
+        
+        const predefinedGallery = [
+            {
+                image: "suffer.png",
+                description: "Featured artwork by cactus_on.fire",
+                artistName: "cactus_on.fire",
+                likes: 42,
+                isPredefined: true
+            }
+        ];
+
+        function showHome() {
+            document.getElementById('nameSection').style.display = 'block';
+            document.getElementById('gallery').style.display = 'none';
+            document.getElementById('uploadSection').style.display = 'none';
+            document.getElementById('loading').style.display = 'none';
+            document.querySelector('.gallery-container').style.display = 'none';
+            hideAllSections();
+        }
+
+        function showGallery() {
+            document.getElementById('nameSection').style.display = 'none';
+            document.getElementById('gallery').style.display = 'grid';
+            document.getElementById('uploadSection').style.display = 'block';
+            document.getElementById('loading').style.display = 'none';
+            document.querySelector('.gallery-container').style.display = 'flex';
+            hideAllSections();
+            loadGallery();
+        }
+
+        function showArtistServices() {
+            document.getElementById('nameSection').style.display = 'none';
+            document.getElementById('gallery').style.display = 'none';
+            document.getElementById('uploadSection').style.display = 'none';
+            document.getElementById('loading').style.display = 'none';
+            document.querySelector('.gallery-container').style.display = 'none';
+            hideAllSections();
+            document.getElementById('artistServicesSection').style.display = 'block';
+        }
+
+        function showLicense() {
+            document.getElementById('nameSection').style.display = 'none';
+            document.getElementById('gallery').style.display = 'none';
+            document.getElementById('uploadSection').style.display = 'none';
+            document.getElementById('loading').style.display = 'none';
+            document.querySelector('.gallery-container').style.display = 'none';
+            hideAllSections();
+            document.getElementById('licenseSection').style.display = 'block';
+        }
+
+        function showContact() {
+            document.getElementById('nameSection').style.display = 'none';
+            document.getElementById('gallery').style.display = 'none';
+            document.getElementById('uploadSection').style.display = 'none';
+            document.getElementById('loading').style.display = 'none';
+            document.querySelector('.gallery-container').style.display = 'none';
+            hideAllSections();
+            document.getElementById('contactSection').style.display = 'block';
+        }
+
+        function hideAllSections() {
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.display = 'none';
+            });
+        }
+
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const messageStatus = document.getElementById('messageStatus');
+            const form = this;
+            
+            messageStatus.textContent = "Sending your message...";
+            messageStatus.style.color = "#00408C";
+            messageStatus.style.display = "block";
+            
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    messageStatus.textContent = "Message sent successfully!";
+                    messageStatus.style.color = "green";
+                    form.reset();
+                    
+                    setTimeout(() => {
+                        messageStatus.style.display = "none";
+                    }, 3000);
+                } else {
+                    throw new Error('Failed to send');
+                }
+            })
+            .catch(error => {
+                messageStatus.textContent = "Failed to send message. Please try again.";
+                messageStatus.style.color = "red";
+                console.error('Error:', error);
+            });
+        });
+
+        function uploadArt() {
+            const fileInput = document.getElementById('imageUpload');
+            const descriptionInput = document.getElementById('description');
+            const artistNameInput = document.getElementById('artistName');
+            const uploadStatus = document.getElementById('uploadStatus');
+            
+            if (fileInput.files.length === 0) {
+                uploadStatus.textContent = "Please select an image to upload.";
+                uploadStatus.style.color = "red";
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const description = descriptionInput.value || "Untitled artwork";
+            const artistName = artistNameInput.value || "Anonymous artist";
+            const timestamp = new Date().toISOString();
+
+            uploadStatus.textContent = "Uploading your artwork...";
+            uploadStatus.style.color = "#00408C";
+
+            const reader = new FileReader();
+            
+            reader.onload = function(event) {
+                const artData = {
+                    image: event.target.result,
+                    description: description,
+                    artistName: artistName,
+                    createdAt: timestamp,
+                    likes: 0
+                };
+                
+                saveSharedArt(artData);
+                
+                uploadStatus.textContent = "Artwork uploaded successfully!";
+                uploadStatus.style.color = "green";
+                
+                fileInput.value = "";
+                descriptionInput.value = "";
+                artistNameInput.value = "";
+                
+                loadGallery();
+            };
+            
+            reader.onerror = function() {
+                uploadStatus.textContent = "Error reading file. Please try again.";
+                uploadStatus.style.color = "red";
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        function saveSharedArt(artData) {
+            let artCollection = JSON.parse(localStorage.getItem(DEMO_SHARED_KEY)) || [];
+            artCollection.unshift(artData);
+            localStorage.setItem(DEMO_SHARED_KEY, JSON.stringify(artCollection));
+        }
+
+        function loadGallery() {
+            const gallery = document.getElementById('gallery');
+            const loadingElement = document.getElementById('loading');
+            
+            gallery.innerHTML = '';
+            loadingElement.style.display = 'block';
+            
+            setTimeout(() => {
+                let artCollection = JSON.parse(localStorage.getItem(DEMO_SHARED_KEY)) || [];
+                const allArt = [...predefinedGallery, ...artCollection];
+                
+                if (allArt.length === 0) {
+                    loadingElement.textContent = "No artworks found. Be the first to upload!";
+                    return;
+                }
+                
+                allArt.sort((a, b) => (b.likes || 0) - (a.likes || 0));
+                
+                allArt.forEach(art => displayArt(art));
+                loadingElement.style.display = 'none';
+            }, 800);
+        }
+
+        function displayArt(artData) {
+            const gallery = document.getElementById('gallery');
+            const artCard = document.createElement('div');
+            artCard.classList.add('art-card');
+            
+            const isPredefined = artData.isPredefined || predefinedGallery.some(art => art.image === artData.image);
+            
+            artCard.innerHTML = `
+                <img src="${artData.image}" alt="${artData.description}" 
+                     onclick="viewArt('${artData.image}', '${artData.description}', '${artData.artistName}', ${artData.likes || 0})">
+                <p>${artData.description}</p>
+                <small style="color: white;">By: ${artData.artistName}</small>
+                <div class="art-actions">
+                    ${isPredefined ? 
+                        `<button onclick="likeArtInCard(this, '${artData.image}')">❤️ ${artData.likes || 0}</button>` :
+                        `<button onclick="editArtwork(this, '${artData.image}', '${artData.description}', '${artData.artistName}')">Edit</button>
+                         <button onclick="deleteArtwork(this, '${artData.image}')">Delete</button>`}
+                </div>
+            `;
+            gallery.appendChild(artCard);
+        }
+
+        function likeArtInCard(button, imageUrl) {
+            const currentLikes = parseInt(button.textContent.match(/\d+/)[0]) || 0;
+            button.innerHTML = `❤️ ${currentLikes + 1}`;
+            
+            const artIndex = predefinedGallery.findIndex(art => art.image === imageUrl);
+            if (artIndex !== -1) {
+                predefinedGallery[artIndex].likes = (predefinedGallery[artIndex].likes || 0) + 1;
+            }
+        }
+
+        function editArtwork(button, imageUrl, currentDescription, currentArtistName) {
+            const artCard = button.closest('.art-card');
+            
+            const editForm = document.createElement('div');
+            editForm.className = 'edit-form';
+            editForm.innerHTML = `
+                <h3 style="color: white; text-align: center; margin-bottom: 10px;">Edit Artwork</h3>
+                <input type="text" id="editDescription" value="${currentDescription}" placeholder="Artwork description">
+                <input type="text" id="editArtistName" value="${currentArtistName}" placeholder="Artist name">
+                <div class="edit-form-buttons">
+                    <button onclick="saveArtworkChanges(this, '${imageUrl}')">Save</button>
+                    <button onclick="cancelEdit(this)" style="background-color: #6c757d;">Cancel</button>
+                </div>
+            `;
+            
+            artCard.querySelector('img').style.display = 'none';
+            artCard.querySelector('p').style.display = 'none';
+            artCard.querySelector('small').style.display = 'none';
+            artCard.querySelector('.art-actions').style.display = 'none';
+            
+            artCard.appendChild(editForm);
+        }
+
+        function saveArtworkChanges(button, imageUrl) {
+            const editForm = button.closest('.edit-form');
+            const newDescription = editForm.querySelector('#editDescription').value;
+            const newArtistName = editForm.querySelector('#editArtistName').value;
+            
+            let artCollection = JSON.parse(localStorage.getItem(DEMO_SHARED_KEY)) || [];
+            
+            const updatedCollection = artCollection.map(art => {
+                if (art.image === imageUrl) {
+                    return {
+                        ...art,
+                        description: newDescription,
+                        artistName: newArtistName
+                    };
+                }
+                return art;
+            });
+            
+            localStorage.setItem(DEMO_SHARED_KEY, JSON.stringify(updatedCollection));
+            
+            loadGallery();
+        }
+
+        function cancelEdit(button) {
+            const editForm = button.closest('.edit-form');
+            const artCard = editForm.closest('.art-card');
+            
+            artCard.querySelector('img').style.display = 'block';
+            artCard.querySelector('p').style.display = 'block';
+            artCard.querySelector('small').style.display = 'inline';
+            artCard.querySelector('.art-actions').style.display = 'flex';
+            
+            editForm.remove();
+        }
+
+        function deleteArtwork(button, imageUrl) {
+            if (!confirm("Are you sure you want to delete this artwork?")) {
+                return;
+            }
+            
+            let artCollection = JSON.parse(localStorage.getItem(DEMO_SHARED_KEY)) || [];
+            
+            const updatedCollection = artCollection.filter(art => art.image !== imageUrl);
+            
+            localStorage.setItem(DEMO_SHARED_KEY, JSON.stringify(updatedCollection));
+            
+            button.closest('.art-card').remove();
+            
+            if (updatedCollection.length === 0) {
+                document.getElementById('loading').style.display = 'block';
+                document.getElementById('loading').textContent = "No artworks found. Be the first to upload!";
+            }
+        }
+
+        function viewArt(image, description, artistName, likes) {
+            const artPopup = document.createElement('div');
+            artPopup.style.position = "fixed";
+            artPopup.style.top = "0";
+            artPopup.style.left = "0";
+            artPopup.style.width = "100%";
+            artPopup.style.height = "100%";
+            artPopup.style.backgroundColor = "rgba(0,0,0,0.9)";
+            artPopup.style.display = "flex";
+            artPopup.style.flexDirection = "column";
+            artPopup.style.justifyContent = "center";
+            artPopup.style.alignItems = "center";
+            artPopup.style.zIndex = "1000";
+            
+            const popupContent = document.createElement('div');
+            popupContent.style.maxWidth = "90%";
+            popupContent.style.maxHeight = "80vh";
+            
+            const img = document.createElement('img');
+            img.src = image;
+            img.style.maxWidth = "100%";
+            img.style.maxHeight = "70vh";
+            img.style.height = "auto";
+            img.style.borderRadius = "8px";
+            popupContent.appendChild(img);
+            
+            const descDiv = document.createElement('div');
+            descDiv.style.color = "white";
+            descDiv.style.textAlign = "center";
+            descDiv.style.marginTop = "15px";
+            
+            const descP = document.createElement('p');
+            descP.style.fontSize = "18px";
+            descP.style.marginBottom = "5px";
+            descP.textContent = description;
+            descDiv.appendChild(descP);
+            
+            const artistSmall = document.createElement('small');
+            artistSmall.textContent = `By: ${artistName}`;
+            descDiv.appendChild(artistSmall);
+            popupContent.appendChild(descDiv);
+            
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = "view-actions";
+            
+            const likeBtn = document.createElement('button');
+            likeBtn.innerHTML = `❤️ ${likes || 0}`;
+            likeBtn.onclick = function() { likeArtInView(this, image); };
+            actionsDiv.appendChild(likeBtn);
+            
+            const shareBtn = document.createElement('button');
+            shareBtn.textContent = "Share";
+            shareBtn.onclick = function() { shareArt(image, description); };
+            actionsDiv.appendChild(shareBtn);
+            
+            const closeBtn = document.createElement('button');
+            closeBtn.textContent = "Close";
+            closeBtn.onclick = function() { 
+                document.body.removeChild(artPopup); 
+            };
+            actionsDiv.appendChild(closeBtn);
+            
+            popupContent.appendChild(actionsDiv);
+            artPopup.appendChild(popupContent);
+            
+            document.body.appendChild(artPopup);
+            
+            artPopup.onclick = function(e) {
+                if (e.target === artPopup) {
+                    document.body.removeChild(artPopup);
+                }
+            };
+        }
+
+        function likeArtInView(button, imageUrl) {
+            const currentLikes = parseInt(button.textContent.match(/\d+/)[0]) || 0;
+            button.innerHTML = `❤️ ${currentLikes + 1}`;
+            
+            let artCollection = JSON.parse(localStorage.getItem(DEMO_SHARED_KEY)) || [];
+            const updatedCollection = artCollection.map(art => {
+                if (art.image === imageUrl) {
+                    return {
+                        ...art,
+                        likes: (art.likes || 0) + 1
+                    };
+                }
+                return art;
+            });
+            
+            localStorage.setItem(DEMO_SHARED_KEY, JSON.stringify(updatedCollection));
+        }
+
+        function shareArt(imageUrl, description) {
+            const shareUrl = `${window.location.origin}${window.location.pathname}?art=${encodeURIComponent(imageUrl)}`;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Check out this artwork on Spaikziks',
+                    text: description,
+                    url: shareUrl
+                }).catch(console.error);
+            } else {
+                prompt("Copy this link to share:", shareUrl);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            showHome();
+            
+            if (!localStorage.getItem(DEMO_SHARED_KEY)) {
+                localStorage.setItem(DEMO_SHARED_KEY, JSON.stringify([]));
+            }
+        });
+    </script>
+</body>
+</html>
