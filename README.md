@@ -11,4 +11,5 @@ video:https://youtu.be/cVhsJNQ4SaQ
 
 *-Formsubmit: https://formsubmit.co/*
 
-*-Namecheap: https://ap.www.namecheap.com/Domains/DomainControlPanel/spaikziks.art/advancedns"
+*-Namecheap: https://ap.www.namecheap.com/Domains/DomainControlPanel/spaikziks.art/advancedns*
+
