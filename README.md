@@ -1,6 +1,6 @@
 # cloud-project-assignment-2-ICT171-
-Rimsha Raheem 35170856
-video:https://youtu.be/cVhsJNQ4SaQ
+-----
+---------
 -----------------------------------
 *RESOURCES USED*
 *-AWS EC2 instance (Ubuntu 22.04)*
